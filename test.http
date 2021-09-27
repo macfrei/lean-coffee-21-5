@@ -1,0 +1,5 @@
+### GET example.com
+GET http://www.example.com/
+
+### GET JSON placeholder
+GET https://jsonplaceholder.typicode.com/posts
