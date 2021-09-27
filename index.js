@@ -8,6 +8,10 @@ app.get('/api/cards', (request, response) => {
   response.send('<h1>Hello, World! Was läuft?</h1>')
 })
 
+app.post('/api/cards', (request, response) => {
+  response.send('This was a POST request')
+})
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
