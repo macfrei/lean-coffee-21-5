@@ -1,3 +1,10 @@
 ### GET 
 GET http://localhost:3000/api/cards
 
+### POST
+POST http://localhost:3000/api/cards
+Content-Type: application/json
+
+{
+    "text": "This is a post request"
+}
