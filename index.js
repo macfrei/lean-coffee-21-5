@@ -12,6 +12,18 @@ app.post('/api/cards', (request, response) => {
   response.send('This was a POST request')
 })
 
+app.put('/api/cards', (request, response) => {
+  response.send('This was a PUT request')
+})
+
+app.patch('/api/cards', (request, response) => {
+  response.send('This was a PATCH request')
+})
+
+app.delete('/api/cards', (request, response) => {
+  response.send('This was a DELETE request')
+})
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
