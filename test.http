@@ -1,5 +1,5 @@
 ### GET 
-GET http://localhost:3000/api/cards
+GET http://localhost:3000/api/cards/1234
 
 ### POST
 POST http://localhost:3000/api/cards
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### PUT
-PUT http://localhost:3000/api/cards
+PUT http://localhost:3000/api/cards/1234/hallo
 Content-Type: application/json
 
 {
