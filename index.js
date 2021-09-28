@@ -14,20 +14,29 @@ app.use('/api/cards', require('./routes/cards'))
 
 app.post('/api/cards', (request, response) => {
   console.log(request.body)
-  response.send('This was a POST request')
+
+  const requestObject = request.body
+  response.send(requestObject.text)
+
+  //   const {text} = request.body
+  //   response.send(text)
 })
 
-app.put('/api/cards', (request, response) => {
+app.put('/api/cards/:id', (request, response) => {
+  const params = request.params
+  console.log(params)
   response.send('This was a PUT request')
 })
 
-app.patch('/api/cards', (request, response) => {
+app.patch('/api/cards/:id', (request, response) => {
   response.send('This was a PATCH request')
 })
 
-app.delete('/api/cards', (request, response) => {
+app.delete('/api/cards/:id', (request, response) => {
   response.send('This was a DELETE request')
 })
+
+// add error handling
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
