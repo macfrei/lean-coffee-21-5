@@ -5,10 +5,12 @@ const port = 3000
 
 app.use(express.json())
 
-app.get('/api/cards', (request, response) => {
-  response.set('Content-type', 'text/html; charset=utf-8')
-  response.send('<h1>Hello, World! Was läuft?</h1>')
-})
+app.use('/api/cards', require('./routes/cards'))
+
+// app.get('/api/cards/:id', (request, response) => {
+//   response.set('Content-type', 'text/html; charset=utf-8')
+//   response.send('<h1>Hello, World! Was läuft?</h1>')
+// })
 
 app.post('/api/cards', (request, response) => {
   console.log(request.body)
