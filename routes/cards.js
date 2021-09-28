@@ -68,7 +68,16 @@ router.patch('/:id', (request, response) => {
 })
 
 router.delete('/:id', (request, response) => {
-  response.send('This was a DELETE request')
+  const { id } = request.params
+  const card = cards.find(card => card.id === id)
+
+  if (card) {
+    cards = cards.filter(card => card.id !== id)
+    response.status(200).json(card)
+  } else {
+    const error = { message: 'Could not find object with that id.' }
+    response.status(404).json(error)
+  }
 })
 
 module.exports = router
