@@ -2,9 +2,21 @@ const express = require('express')
 
 const router = express.Router()
 
+let cards = [
+  {
+    text: 'What is MongoDB?',
+    author: 'John Doe',
+    id: '1234abc',
+  },
+  {
+    text: 'What is Node.js?',
+    author: 'Jane Doe',
+    id: '123abcd',
+  },
+]
+
 router.get('/', (request, response) => {
-  response.set('Content-type', 'text/html; charset=utf-8')
-  response.send('<h1>Hello, Moon! Was läuft?</h1>')
+  response.status(200).json(cards)
 })
 
 router.get('/:id', (request, response) => {
