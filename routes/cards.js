@@ -20,8 +20,19 @@ router.get('/', (request, response) => {
 })
 
 router.get('/:id', (request, response) => {
-  response.set('Content-type', 'text/html; charset=utf-8')
-  response.send('I am a lonley object!')
+  const { id } = request.params
+  // const params = request.params // { id: '1234abc' }
+  // const id = params.id // '1234abc'
+
+  const card = cards.find(card => card.id === id)
+  // card === undefined: falsy
+  // card === {...}: truthy
+  if (card) {
+    response.status(200).json(card)
+  } else {
+    const error = { message: 'Could not find object with that id.' }
+    response.status(404).json(error)
+  }
 })
 
 router.post('/', (request, response) => {

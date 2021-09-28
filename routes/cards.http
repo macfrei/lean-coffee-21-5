@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/cards
 
 ### GET id
-GET http://localhost:3000/api/cards/1234abc
+GET http://localhost:3000/api/cards/1234abc123
 
 
 ### POST
