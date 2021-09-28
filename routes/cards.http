@@ -1,5 +1,9 @@
 ### GET 
-GET http://localhost:3000/api/cards/1234
+GET http://localhost:3000/api/cards
+
+### GET id
+GET http://localhost:3000/api/cards/1234abc
+
 
 ### POST
 POST http://localhost:3000/api/cards
