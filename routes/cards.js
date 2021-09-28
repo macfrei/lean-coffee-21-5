@@ -58,6 +58,8 @@ router.post('/', (request, response) => {
 })
 
 router.put('/:id', (request, response) => {
+  // PUT: gesamtes Objekt wird mit den Daten im request.body geupdated
+  // PUT request handler implementieren
   const params = request.params
   console.log(params)
   response.send('This was a PUT request')
