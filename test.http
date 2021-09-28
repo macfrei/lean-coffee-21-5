@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### PUT
-PUT http://localhost:3000/api/cards/1234/hallo
+PUT http://localhost:3000/api/cards/1234
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### PATCH
-PATCH http://localhost:3000/api/cards
+PATCH http://localhost:3000/api/cards/1234
 Content-Type: application/json
 
 {
@@ -26,4 +26,4 @@ Content-Type: application/json
 }
 
 ### DELETE
-DELETE  http://localhost:3000/api/cards
+DELETE  http://localhost:3000/api/cards/1234
