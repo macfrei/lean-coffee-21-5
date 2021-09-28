@@ -10,7 +10,8 @@ POST http://localhost:3000/api/cards
 Content-Type: application/json
 
 {
-    "text": "What is Node.js?"
+    "text": "What is Node.js?",
+    "author": "Max Mustermann"
 }
 
 ### PUT
