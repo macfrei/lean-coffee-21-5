@@ -64,7 +64,37 @@ router.put('/:id', (request, response) => {
 })
 
 router.patch('/:id', (request, response) => {
-  response.send('This was a PATCH request')
+  const { id } = request.params
+  const { text, author } = request.body
+
+  if (!text && !author) {
+    // wenn text UND auhtor beide leer sind, dann schmeiß einen Error
+    const error = { message: 'Information missing.' }
+    return response.status(400).json(error) // Bad Request
+  }
+
+  const card = cards.find(card => card.id === id)
+
+  if (!card) {
+    const error = { message: 'Could not find object with that id.' }
+    return response.status(404).json(error)
+  }
+
+  const newCard = {
+    text: text ? text : card.text,
+    author: author ? author : card.author,
+    id: card.id,
+  }
+
+  const index = cards.findIndex(card => card.id === id) // gives index of card
+
+  cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
+
+  // const firstHalfOfArray = cards.slice(0, index)
+  // const lastHalfofArray = cards.slice(index + 1)
+
+  // cards = [...firstHalfOfArray, newCard, ...lastHalfofArray]
+  response.status(200).json(newCard)
 })
 
 router.delete('/:id', (request, response) => {

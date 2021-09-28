@@ -23,12 +23,12 @@ Content-Type: application/json
 }
 
 ### PATCH
-PATCH http://localhost:3000/api/cards/1234
+PATCH http://localhost:3000/api/cards/1234abc
 Content-Type: application/json
 
 {
-    "text": "This is a post request"
+    "text": "This is SO awesome!"
 }
 
 ### DELETE
-DELETE  http://localhost:3000/api/cards/1234
+DELETE  http://localhost:3000/api/cards/1234abc
