@@ -25,20 +25,25 @@ router.get('/', (request, response) => {
 
 router.get('/:id', (request, response) => {
   const { id } = request.params
+  // when data === null throw new error
+  Card.findById(id)
+    .then(data => response.status(200).json(data))
+    .catch(error => response.status(404).json(error))
 
-  const card = cards.find(card => card.id === id)
+  // const card = cards.find(card => card.id === id)
 
-  if (card) {
-    response.status(200).json(card)
-  } else {
-    const error = { message: 'Could not find object with that id.' }
-    response.status(404).json(error)
-  }
+  // if (card) {
+  //   response.status(200).json(card)
+  // } else {
+  //   const error = { message: 'Could not find object with that id.' }
+  //   response.status(404).json(error)
+  // }
 })
 
 router.post('/', (request, response) => {
   const { text, author } = request.body
 
+  // Look in mongoose documentation for: 'create'
   if (text === '' || author === '') {
     const error = { message: 'Information missing.' }
     return response.status(400).json(error)
@@ -50,38 +55,40 @@ router.post('/', (request, response) => {
   response.status(200).json(newCard)
 })
 
-router.put('/:id', (request, response) => {
-  const { id } = request.params
-  const { text, author } = request.body
+// router.put('/:id', (request, response) => {
+//   const { id } = request.params
+//   const { text, author } = request.body
 
-  if (!text || !author) {
-    const error = { message: 'Information missing.' }
-    return response.status(400).json(error)
-  }
+//   if (!text || !author) {
+//     const error = { message: 'Information missing.' }
+//     return response.status(400).json(error)
+//   }
 
-  const card = cards.find(card => card.id === id)
+//   const card = cards.find(card => card.id === id)
 
-  if (!card) {
-    const error = { message: 'Could not find object with that id.' }
-    return response.status(404).json(error)
-  }
+//   if (!card) {
+//     const error = { message: 'Could not find object with that id.' }
+//     return response.status(404).json(error)
+//   }
 
-  const newCard = {
-    text,
-    author,
-    id: card.id,
-  }
+//   const newCard = {
+//     text,
+//     author,
+//     id: card.id,
+//   }
 
-  const index = cards.findIndex(card => card.id === id)
+//   const index = cards.findIndex(card => card.id === id)
 
-  cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
+//   cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
 
-  response.status(200).json(newCard)
-})
+//   response.status(200).json(newCard)
+// })
 
 router.patch('/:id', (request, response) => {
   const { id } = request.params
   const { text, author } = request.body
+
+  // Look in mongoose documentation for: 'findByIdAndUpdate'
 
   if (!text && !author) {
     const error = { message: 'Information missing.' }
@@ -110,6 +117,7 @@ router.patch('/:id', (request, response) => {
 router.delete('/:id', (request, response) => {
   const { id } = request.params
   const card = cards.find(card => card.id === id)
+  // Look in mongoose documentation for: 'findByIdAndDelete'
 
   if (card) {
     cards = cards.filter(card => card.id !== id)
