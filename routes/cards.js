@@ -29,15 +29,6 @@ router.get('/:id', (request, response) => {
   Card.findById(id)
     .then(data => response.status(200).json(data))
     .catch(error => response.status(404).json(error))
-
-  // const card = cards.find(card => card.id === id)
-
-  // if (card) {
-  //   response.status(200).json(card)
-  // } else {
-  //   const error = { message: 'Could not find object with that id.' }
-  //   response.status(404).json(error)
-  // }
 })
 
 router.post('/', (request, response) => {
@@ -49,83 +40,35 @@ router.post('/', (request, response) => {
     return response.status(400).json(error)
   }
 
-  const newCard = { text, author, id: nanoid() }
-  cards = [...cards, newCard]
+  const newCard = { text, author }
 
-  response.status(200).json(newCard)
+  // Card.create(request.body)
+  // Card.create({ text, author }) { text: text, author: author }
+  Card.create(newCard)
+    .then(card => response.status(201).json(card))
+    .catch(error => response.status(404).json(error))
 })
-
-// router.put('/:id', (request, response) => {
-//   const { id } = request.params
-//   const { text, author } = request.body
-
-//   if (!text || !author) {
-//     const error = { message: 'Information missing.' }
-//     return response.status(400).json(error)
-//   }
-
-//   const card = cards.find(card => card.id === id)
-
-//   if (!card) {
-//     const error = { message: 'Could not find object with that id.' }
-//     return response.status(404).json(error)
-//   }
-
-//   const newCard = {
-//     text,
-//     author,
-//     id: card.id,
-//   }
-
-//   const index = cards.findIndex(card => card.id === id)
-
-//   cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
-
-//   response.status(200).json(newCard)
-// })
 
 router.patch('/:id', (request, response) => {
   const { id } = request.params
   const { text, author } = request.body
-
-  // Look in mongoose documentation for: 'findByIdAndUpdate'
 
   if (!text && !author) {
     const error = { message: 'Information missing.' }
     return response.status(400).json(error)
   }
 
-  const card = cards.find(card => card.id === id)
-
-  if (!card) {
-    const error = { message: 'Could not find object with that id.' }
-    return response.status(404).json(error)
-  }
-
-  const newCard = {
-    text: text ? text : card.text,
-    author: author ? author : card.author,
-    id: card.id,
-  }
-
-  const index = cards.findIndex(card => card.id === id)
-  cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
-
-  response.status(200).json(newCard)
+  Card.findByIdAndUpdate(id, { text, author }, { new: true })
+    .then(card => response.status(200).json(card))
+    .catch(error => response.status(400).json(error))
 })
 
 router.delete('/:id', (request, response) => {
   const { id } = request.params
-  const card = cards.find(card => card.id === id)
-  // Look in mongoose documentation for: 'findByIdAndDelete'
 
-  if (card) {
-    cards = cards.filter(card => card.id !== id)
-    response.status(200).json(card)
-  } else {
-    const error = { message: 'Could not find object with that id.' }
-    response.status(404).json(error)
-  }
+  Card.findByIdAndDelete(id)
+    .then(card => response.status(200).json(card))
+    .catch(error => response.status(404).json(error))
 })
 
 module.exports = router
