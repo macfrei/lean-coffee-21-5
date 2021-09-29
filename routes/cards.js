@@ -58,11 +58,32 @@ router.post('/', (request, response) => {
 })
 
 router.put('/:id', (request, response) => {
-  // PUT: gesamtes Objekt wird mit den Daten im request.body geupdated
-  // PUT request handler implementieren
-  const params = request.params
-  console.log(params)
-  response.send('This was a PUT request')
+  const { id } = request.params
+  const { text, author } = request.body
+
+  if (!text || !author) {
+    const error = { message: 'Information missing.' }
+    return response.status(400).json(error)
+  }
+
+  const card = cards.find(card => card.id === id)
+
+  if (!card) {
+    const error = { message: 'Could not find object with that id.' }
+    return response.status(404).json(error)
+  }
+
+  const newCard = {
+    text,
+    author,
+    id: card.id,
+  }
+
+  const index = cards.findIndex(card => card.id === id)
+
+  cards = [...cards.slice(0, index), newCard, ...cards.slice(index + 1)]
+
+  response.status(200).json(newCard)
 })
 
 router.patch('/:id', (request, response) => {

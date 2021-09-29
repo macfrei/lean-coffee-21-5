@@ -15,11 +15,12 @@ Content-Type: application/json
 }
 
 ### PUT
-PUT http://localhost:3000/api/cards/1234
+PUT http://localhost:3000/api/cards/1234abc
 Content-Type: application/json
 
 {
-    "text": "This is a post request"
+    "text": "This is a post request",
+    "author": "John Doe"
 }
 
 ### PATCH
