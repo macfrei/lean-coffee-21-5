@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/cards
 
 ### GET id
-GET http://localhost:3000/api/cards/61543c4aff5980e4d2ea74cb
+GET http://localhost:3000/api/cards/61543c4aff5980e4d2ea74c4
 
 
 ### POST
@@ -10,7 +10,7 @@ POST http://localhost:3000/api/cards
 Content-Type: application/json
 
 {
-    "text": "What is Node.js?",
+    "text": "Uhhu no version key!",
     "author": "Max Mustermann"
 }
 
@@ -24,12 +24,12 @@ Content-Type: application/json
 }
 
 ### PATCH
-PATCH http://localhost:3000/api/cards/1234abc
+PATCH http://localhost:3000/api/cards/615474b0fa795ff829738555
 Content-Type: application/json
 
 {
-    "text": "This is SO awesome!"
+    "author": "Max"
 }
 
 ### DELETE
-DELETE  http://localhost:3000/api/cards/1234abc
+DELETE  http://localhost:3000/api/cards/615474d520eb1d573837ec76
