@@ -13,7 +13,7 @@ router.get('/', (request, response, next) => {
 
 router.get('/:id', (request, response, next) => {
   const { id } = request.params
-  // when data === null throw new error
+
   Card.findById(id)
     .then(data => {
       if (!data) {
@@ -26,42 +26,55 @@ router.get('/:id', (request, response, next) => {
     )
 })
 
-router.post('/', (request, response) => {
+router.post('/', (request, response, next) => {
   const { text, author } = request.body
 
   if (text === '' || author === '') {
     const error = { message: 'Information missing.' }
-    return response.status(400).json(error)
+    return next({ status: 400, message: error.message })
   }
 
   const newCard = { text, author }
 
   Card.create(newCard)
     .then(card => response.status(201).json(card))
-    .catch(error => response.status(404).json(error))
+    .catch(next)
 })
 
-router.patch('/:id', (request, response) => {
+router.patch('/:id', (request, response, next) => {
   const { id } = request.params
   const { text, author } = request.body
 
   if (!text && !author) {
     const error = { message: 'Information missing.' }
-    return response.status(400).json(error)
+    return next({ status: 400, message: error.message })
   }
 
   Card.findByIdAndUpdate(id, { text, author }, { new: true })
-    .then(card => response.status(200).json(card))
-    .catch(error => response.status(400).json(error))
+    .then(card => {
+      if (!card) {
+        throw new Error()
+      }
+      response.status(200).json(card)
+    })
+    .catch(error =>
+      next({ status: 404, message: error.message || 'Document not found' })
+    )
 })
 
-// add error handling with 'next'
-router.delete('/:id', (request, response) => {
+router.delete('/:id', (request, response, next) => {
   const { id } = request.params
 
   Card.findByIdAndDelete(id)
-    .then(card => response.status(200).json(card))
-    .catch(error => response.status(404).json(error))
+    .then(card => {
+      if (!card) {
+        throw new Error()
+      }
+      response.status(200).json(card)
+    })
+    .catch(error =>
+      next({ status: 404, message: error.message || 'Document not found' })
+    )
 })
 
 module.exports = router
