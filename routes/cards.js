@@ -1,21 +1,7 @@
 const express = require('express')
 const Card = require('../models/Card')
-const { nanoid } = require('nanoid')
 
 const router = express.Router()
-
-let cards = [
-  {
-    text: 'What is MongoDB?',
-    author: 'John Doe',
-    id: '1234abc',
-  },
-  {
-    text: 'What is Node.js?',
-    author: 'Jane Doe',
-    id: '123abcd',
-  },
-]
 
 router.get('/', (request, response) => {
   Card.find()
@@ -34,7 +20,6 @@ router.get('/:id', (request, response) => {
 router.post('/', (request, response) => {
   const { text, author } = request.body
 
-  // Look in mongoose documentation for: 'create'
   if (text === '' || author === '') {
     const error = { message: 'Information missing.' }
     return response.status(400).json(error)
@@ -42,8 +27,6 @@ router.post('/', (request, response) => {
 
   const newCard = { text, author }
 
-  // Card.create(request.body)
-  // Card.create({ text, author }) { text: text, author: author }
   Card.create(newCard)
     .then(card => response.status(201).json(card))
     .catch(error => response.status(404).json(error))
