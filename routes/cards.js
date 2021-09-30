@@ -3,18 +3,27 @@ const Card = require('../models/Card')
 
 const router = express.Router()
 
-router.get('/', (request, response) => {
+router.get('/', (request, response, next) => {
   Card.find()
     .then(data => response.status(200).json(data))
-    .catch(error => response.status(404).json(error))
+    .catch(error =>
+      next({ status: 404, message: error.message || 'Document not found' })
+    )
 })
 
-router.get('/:id', (request, response) => {
+router.get('/:id', (request, response, next) => {
   const { id } = request.params
   // when data === null throw new error
   Card.findById(id)
-    .then(data => response.status(200).json(data))
-    .catch(error => response.status(404).json(error))
+    .then(data => {
+      if (!data) {
+        throw new Error('This is my error!')
+      }
+      response.status(200).json(data)
+    })
+    .catch(error =>
+      next({ status: 404, message: error.message || 'Document not found' })
+    )
 })
 
 router.post('/', (request, response) => {
@@ -46,6 +55,7 @@ router.patch('/:id', (request, response) => {
     .catch(error => response.status(400).json(error))
 })
 
+// add error handling with 'next'
 router.delete('/:id', (request, response) => {
   const { id } = request.params
 
