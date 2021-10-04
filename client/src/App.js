@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import getCards from './services/getCards'
 
 function App() {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
     // GET http://localhost:4000/api/cards
-    fetch('/api/cards')
-      .then(res => res.json())
+    getCards()
       .then(data => setCards(data))
       .catch(error => console.error(error))
   }, [])
@@ -22,6 +22,12 @@ function App() {
       ))}
     </Main>
   )
+
+  function createCard() {
+    // postCard.js mit function postCard(card)
+    // POST '/api/cards'
+    // .then(card => setCards([...cards, card]))
+  }
 }
 
 const Main = styled.main`
