@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react'
+import styled from 'styled-components/macro'
+import getCards from './services/getCards'
 
 function App() {
+  const [cards, setCards] = useState([])
+
+  useEffect(() => {
+    // GET http://localhost:4000/api/cards
+    getCards()
+      .then(data => setCards(data))
+      .catch(error => console.error(error))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Main>
+      {cards.map(card => (
+        <section key={card._id}>
+          <p>{card.text}</p>
+          <p>{card.author}</p>
+        </section>
+      ))}
+    </Main>
+  )
+
+  function createCard() {
+    // postCard.js mit function postCard(card)
+    // POST '/api/cards'
+    // .then(card => setCards([...cards, card]))
+  }
 }
 
-export default App;
+const Main = styled.main`
+  display: grid;
+  grid-gap: 20px;
+  height: 100vh;
+  background-color: hotpink;
+  color: white;
+  padding: 30px;
+
+  section {
+    border: 2px solid white;
+  }
+`
+
+export default App
