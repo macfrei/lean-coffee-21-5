@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 function Error({ errorMessage }) {
-  if (!errorMessage) return null
   return (
     <Container>
       <h2>Error</h2>

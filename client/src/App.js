@@ -7,7 +7,7 @@ import getCards from './services/getCards'
 
 function App() {
   const [cards, setCards] = useState([])
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     // GET http://localhost:4000/api/cards
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <Main>
-      <Error errorMessage={errorMessage} />
+      {errorMessage && <Error errorMessage={errorMessage} />}
       <Form onCreateCard={createCard} />
       {cards.map(card => (
         <Card card={card} key={card._id} onDeleteCard={deleteCard} />
