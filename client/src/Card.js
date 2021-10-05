@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-function Card({ card, onDeleteQuestion }) {
+function Card({ card, onDeleteCard }) {
   return (
     <Container>
-      <DeleteButton onClick={() => onDeleteQuestion(card._id)}>x</DeleteButton>
+      <DeleteButton onClick={() => onDeleteCard(card._id)}>x</DeleteButton>
       <p>{card.text}</p>
       <p>{card.author}</p>
     </Container>

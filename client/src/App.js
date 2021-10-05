@@ -18,7 +18,7 @@ function App() {
     <Main>
       <Form onCreateCard={createCard} />
       {cards.map(card => (
-        <Card card={card} key={card._id} />
+        <Card card={card} key={card._id} onDeleteCard={deleteCard} />
       ))}
     </Main>
   )
@@ -37,6 +37,19 @@ function App() {
     })
       .then(res => res.json())
       .then(data => setCards([...cards, data])) // {text: "What is HTML?", author: "Anonymous", _id: "231243f3jghv"}
+      .catch(error => console.error(error))
+  }
+
+  function deleteCard(cardId) {
+    // DELETE /api/cards/{id}
+    fetch(`/api/cards/${cardId}`, {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then(data => {
+        const newCards = cards.filter(card => card._id !== data._id)
+        setCards(newCards)
+      })
       .catch(error => console.error(error))
   }
 }
