@@ -4,6 +4,8 @@ import Card from './components/Card'
 import Form from './components/Form'
 import Error from './components/Error'
 import getCards from './services/getCards'
+import postCard from './services/postCard'
+import deleteCard from './services/deleteCard'
 
 function App() {
   const [cards, setCards] = useState([])
@@ -21,7 +23,7 @@ function App() {
       {errorMessage && <Error errorMessage={errorMessage} />}
       <Form onCreateCard={createCard} />
       {cards.map(card => (
-        <Card card={card} key={card._id} onDeleteCard={deleteCard} />
+        <Card card={card} key={card._id} onRemoveCard={removeCard} />
       ))}
     </Main>
   )
@@ -31,24 +33,14 @@ function App() {
     // postCard.js mit function postCard(card)
     // POST '/api/cards'
     // .then(card => setCards([...cards, card]))
-    fetch('/api/cards', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify(card),
-    })
-      .then(res => res.json())
+    postCard(card)
       .then(data => setCards([...cards, data])) // {text: "What is HTML?", author: "Anonymous", _id: "231243f3jghv"}
       .catch(error => setErrorMessage('Could not create new Card'))
   }
 
-  function deleteCard(cardId) {
+  function removeCard(cardId) {
     // DELETE /api/cards/{id}
-    fetch(`/api/cards/${cardId}`, {
-      method: 'DELETE',
-    })
-      .then(res => res.json())
+    deleteCard(cardId)
       .then(data => {
         const newCards = cards.filter(card => card._id !== data._id)
         setCards(newCards)

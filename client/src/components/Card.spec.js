@@ -11,7 +11,7 @@ const card = {
 describe('Card', () => {
   it('renders the Card', () => {
     const mockOnDeleteQuestion = jest.fn()
-    render(<Card card={card} onDeleteQuestion={mockOnDeleteQuestion} />)
+    render(<Card card={card} onRemoveCard={mockOnDeleteQuestion} />)
 
     // renders the text
     expect(screen.getByText(card.text)).toBeInTheDocument()
@@ -27,7 +27,7 @@ describe('Card', () => {
 
   it('calls onDeleteQuestion when the delete button is clicked', () => {
     const mockOnDeleteQuestion = jest.fn()
-    render(<Card card={card} onDeleteQuestion={mockOnDeleteQuestion} />)
+    render(<Card card={card} onRemoveCard={mockOnDeleteQuestion} />)
     const button = screen.getByRole('button')
     userEvent.click(button)
     expect(mockOnDeleteQuestion).toHaveBeenCalledTimes(1)
