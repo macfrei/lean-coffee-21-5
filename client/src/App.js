@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import Card from './Card'
 import Form from './components/Form'
 import getCards from './services/getCards'
 
@@ -17,10 +18,7 @@ function App() {
     <Main>
       <Form onCreateCard={createCard} />
       {cards.map(card => (
-        <section key={card._id}>
-          <p>{card.text}</p>
-          <p>{card.author}</p>
-        </section>
+        <Card card={card} key={card._id} />
       ))}
     </Main>
   )
