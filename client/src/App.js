@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import Card from './Card'
+import Card from './components/Card'
 import Form from './components/Form'
-import Error from './Error'
+import Error from './components/Error'
 import getCards from './services/getCards'
 
 function App() {
